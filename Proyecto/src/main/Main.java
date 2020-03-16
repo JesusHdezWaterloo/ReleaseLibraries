@@ -6,10 +6,10 @@
 package main;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import components.dialog.notification.types._NotificationDialogActionFAIL;
+import components.dialog.notification.types._NotificationDialogActionOK;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -21,37 +21,41 @@ public class Main {
     public static final File jsonFile = new File(new File("").getAbsolutePath() + File.separator + "cfg.json");
     public static Configuration cfg;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
         try {
             cfg = new ObjectMapper().readValue(jsonFile, Configuration.class);
         } catch (IOException e) {
             e.printStackTrace();
+            new _NotificationDialogActionFAIL("Error en configuración, usando default.");
             cfg = new Configuration();
             cfg.saveToJSON();
         }
         desplegarRelease();
+        new _NotificationDialogActionOK("Terminado el despliegue.");
+        Thread.sleep(3 * 1000);
+        System.exit(0);
     }
 
     private static void desplegarRelease() {
-        File actualFolder = new File(new File("").getAbsolutePath());
         for (Pair pair : cfg.getFolders()) {
             try {
-                File folderFrom = new File(actualFolder.getAbsolutePath() + File.separator + pair.getDesde());
-                File folderTo = new File(actualFolder.getAbsolutePath() + File.separator + pair.getHasta());
+                File folderFrom = new File(pair.getDesde());
+                File folderTo = new File(pair.getHasta());
                 FileUtils.deleteDirectory(folderTo);//borro el nuevo si no lo he borrado
                 FileUtils.copyDirectory(folderFrom, folderTo);
             } catch (Exception e) {
-                JOptionPane.showInternalInputDialog(null, "Error copiando la carpeta " + pair.getDesde() + " a " + pair.getHasta(), "Error", JOptionPane.ERROR_MESSAGE);
+                new _NotificationDialogActionFAIL("Error copiando la carpeta.");
             }
         }
         for (Pair pair : cfg.getFiles()) {
             try {
-                File fileFrom = new File(actualFolder.getAbsolutePath() + File.separator + pair.getDesde());
-                File fileTo = new File(actualFolder.getAbsolutePath() + File.separator + pair.getHasta());
+                File fileFrom = new File(pair.getDesde());
+                File fileTo = new File(pair.getHasta());
                 fileTo.delete();
                 FileUtils.copyFile(fileFrom, fileTo);
             } catch (Exception e) {
-                JOptionPane.showInternalInputDialog(null, "Error copiando el fichero " + pair.getDesde() + " a " + pair.getHasta(), "Error", JOptionPane.ERROR_MESSAGE);
+                new _NotificationDialogActionFAIL("Error copiando el fichero.");
             }
         }
     }
