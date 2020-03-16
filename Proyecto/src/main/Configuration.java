@@ -6,6 +6,7 @@
 package main;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jackson.JACKSON;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -38,7 +39,7 @@ public class Configuration implements Serializable {
 
     public boolean saveToJSON() {
         try {
-            new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(Main.jsonFile, new Configuration());
+            JACKSON.write(Main.jsonFile, new Configuration());
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;
