@@ -8,11 +8,8 @@ package main;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import components.dialog.notification.types._NotificationDialogActionFAIL;
 import components.dialog.notification.types._NotificationDialogActionOK;
-import components.dialog.notification.types._NotificationDialogCreate;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 
 /**
