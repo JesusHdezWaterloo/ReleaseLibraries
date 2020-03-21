@@ -8,6 +8,7 @@ package main;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import components.dialog.notification.types._NotificationDialogActionFAIL;
 import components.dialog.notification.types._NotificationDialogActionOK;
+import file.FILE;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
@@ -40,20 +41,14 @@ public class Main {
     private static void desplegarRelease() {
         for (Pair pair : cfg.getFolders()) {
             try {
-                File folderFrom = new File(pair.getDesde());
-                File folderTo = new File(pair.getHasta());
-                FileUtils.deleteDirectory(folderTo);//borro el nuevo si no lo he borrado
-                FileUtils.copyDirectory(folderFrom, folderTo);
+                FILE.copy(pair.getDesde(), pair.getHasta());
             } catch (Exception e) {
                 new _NotificationDialogActionFAIL("Error copiando la carpeta.");
             }
         }
         for (Pair pair : cfg.getFiles()) {
             try {
-                File fileFrom = new File(pair.getDesde());
-                File fileTo = new File(pair.getHasta());
-                fileTo.delete();
-                FileUtils.copyFile(fileFrom, fileTo);
+                FILE.copy(pair.getDesde(), pair.getHasta());
             } catch (Exception e) {
                 new _NotificationDialogActionFAIL("Error copiando el fichero.");
             }
