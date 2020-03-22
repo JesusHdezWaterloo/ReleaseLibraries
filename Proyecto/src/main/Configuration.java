@@ -6,6 +6,7 @@
 package main;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jackson.JACKSON;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -21,32 +22,24 @@ public class Configuration implements Serializable {
     private ArrayList<Pair> files = new ArrayList<>();
 
     public Configuration() {
-        String materialJarFile = "Proyecto" + File.separator + "dist" + File.separator + "MateialImplementation.jar";
+        Pair file = new Pair();
+        file.setDesde("123");
+        file.setHasta("123");
+        Pair file2 = new Pair();
+        file2.setDesde("123");
+        file2.setHasta("123");
+        files.add(file);
+        files.add(file2);
 
-        Pair own = new Pair();
-        own.setDesde(materialJarFile);
-        own.setHasta("libs" + File.separator + "visuales" + File.separator + "MateialImplementation.jar");
-        files.add(own);
-        
-        Pair general = new Pair();
-        general.setDesde(materialJarFile);
-        general.setHasta("C:\\Program Files\\Java\\VisualesMios\\MateialImplementation.jar");
-        files.add(general);
-        
-        Pair meca = new Pair();
-        meca.setDesde(materialJarFile);
-        meca.setHasta("C:\\Users\\Yo\\Documents\\GIT Projects\\Meca\\libs\\visuales\\MateialImplementation.jar");
-        files.add(meca);
-        
-        Pair updateMeca = new Pair();
-        updateMeca.setDesde(materialJarFile);
-        updateMeca.setHasta("C:\\Users\\Yo\\Documents\\GIT Projects\\UpdateMeca\\libs\\visuales\\MateialImplementation.jar");
-        files.add(updateMeca);
+        Pair folder = new Pair();
+        folder.setDesde("123");
+        folder.setHasta("123");
+        folders.add(folder);
     }
 
     public boolean saveToJSON() {
         try {
-            new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(Main.jsonFile, new Configuration());
+            JACKSON.write(Main.cfgJsonFile, new Configuration());
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;

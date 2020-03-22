@@ -29,3 +29,5 @@ Proyecto/nbproject/
 Proyecto/build.xml
 Proyecto/manifest.mf
 Proyecto/cfg.json
+
+*.json
