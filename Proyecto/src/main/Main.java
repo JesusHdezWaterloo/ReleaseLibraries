@@ -11,7 +11,7 @@ import components.dialog.notification.types._NotificationDialogActionOK;
 import file.FILE;
 import java.io.File;
 import java.io.IOException;
-import org.apache.commons.io.FileUtils;
+import others.ExceptionHandlerUtil;
 
 /**
  *
@@ -19,15 +19,15 @@ import org.apache.commons.io.FileUtils;
  */
 public class Main {
 
-    public static final File jsonFile = new File(new File("").getAbsolutePath() + File.separator + "cfg_release_library.json");
+    public static final File cfgJsonFile = new File(new File("").getAbsolutePath() + File.separator + "cfg_release_library.json");
+    public static final File errorJsonFile = new File(new File("").getAbsolutePath() + File.separator + "error_release_library.json");
     public static Configuration cfg;
 
     public static void main(String[] args) throws InterruptedException {
-
         try {
-            cfg = new ObjectMapper().readValue(jsonFile, Configuration.class);
+            cfg = new ObjectMapper().readValue(cfgJsonFile, Configuration.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            ExceptionHandlerUtil.saveException(errorJsonFile, e);
             new _NotificationDialogActionFAIL("Error en configuración, usando default.");
             cfg = new Configuration();
             cfg.saveToJSON();
@@ -43,6 +43,7 @@ public class Main {
             try {
                 FILE.copy(pair.getDesde(), pair.getHasta());
             } catch (Exception e) {
+                ExceptionHandlerUtil.saveException(errorJsonFile, e);
                 new _NotificationDialogActionFAIL("Error copiando la carpeta.");
             }
         }
@@ -50,9 +51,9 @@ public class Main {
             try {
                 FILE.copy(pair.getDesde(), pair.getHasta());
             } catch (Exception e) {
+                ExceptionHandlerUtil.saveException(errorJsonFile, e);
                 new _NotificationDialogActionFAIL("Error copiando el fichero.");
             }
         }
     }
-
 }

@@ -39,7 +39,7 @@ public class Configuration implements Serializable {
 
     public boolean saveToJSON() {
         try {
-            JACKSON.write(Main.jsonFile, new Configuration());
+            JACKSON.write(Main.cfgJsonFile, new Configuration());
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;
