@@ -19,7 +19,7 @@ import org.apache.commons.io.FileUtils;
  */
 public class Main {
 
-    public static final File jsonFile = new File(new File("").getAbsolutePath() + File.separator + "cfg.json");
+    public static final File jsonFile = new File(new File("").getAbsolutePath() + File.separator + "cfg_release_library.json");
     public static Configuration cfg;
 
     public static void main(String[] args) throws InterruptedException {
