@@ -18,23 +18,9 @@ import java.util.ArrayList;
  */
 public class Configuration implements Serializable {
 
-    private ArrayList<Pair> folders = new ArrayList<>();
     private ArrayList<Pair> files = new ArrayList<>();
 
     public Configuration() {
-        Pair file = new Pair();
-        file.setDesde("123");
-        file.setHasta("123");
-        Pair file2 = new Pair();
-        file2.setDesde("123");
-        file2.setHasta("123");
-        files.add(file);
-        files.add(file2);
-
-        Pair folder = new Pair();
-        folder.setDesde("123");
-        folder.setHasta("123");
-        folders.add(folder);
     }
 
     public boolean saveToJSON() {
@@ -46,15 +32,7 @@ public class Configuration implements Serializable {
         }
         return true;
     }
-
-    public ArrayList<Pair> getFolders() {
-        return folders;
-    }
-
-    public void setFolders(ArrayList<Pair> folders) {
-        this.folders = folders;
-    }
-
+    
     public ArrayList<Pair> getFiles() {
         return files;
     }
