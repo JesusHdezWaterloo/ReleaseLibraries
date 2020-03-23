@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import components.dialog.notification.types._NotificationDialogActionFAIL;
 import components.dialog.notification.types._NotificationDialogActionOK;
 import file.FILE;
+import jackson.JACKSON;
 import java.io.File;
 import java.io.IOException;
 import others.ExceptionHandlerUtil;
@@ -25,7 +26,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         try {
-            cfg = new ObjectMapper().readValue(cfgJsonFile, Configuration.class);
+            cfg = JACKSON.read(cfgJsonFile, Configuration.class);
         } catch (IOException e) {
             ExceptionHandlerUtil.saveException(errorJsonFile, e);
             new _NotificationDialogActionFAIL("Error en configuración, usando default.");
@@ -39,14 +40,6 @@ public class Main {
     }
 
     private static void desplegarRelease() {
-        for (Pair pair : cfg.getFolders()) {
-            try {
-                FILE.copy(pair.getDesde(), pair.getHasta());
-            } catch (Exception e) {
-                ExceptionHandlerUtil.saveException(errorJsonFile, e);
-                new _NotificationDialogActionFAIL("Error copiando la carpeta.");
-            }
-        }
         for (Pair pair : cfg.getFiles()) {
             try {
                 FILE.copy(pair.getDesde(), pair.getHasta());
