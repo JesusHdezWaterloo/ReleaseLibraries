@@ -13,6 +13,7 @@ import jackson.JACKSON;
 import java.io.File;
 import java.io.IOException;
 import others.ExceptionHandlerUtil;
+import others.Pair;
 
 /**
  *
@@ -40,9 +41,9 @@ public class Main {
     }
 
     private static void desplegarRelease() {
-        for (Pair pair : cfg.getFiles()) {
+        for (Pair<String> pair : cfg.getFiles()) {
             try {
-                FILE.copy(pair.getDesde(), pair.getHasta());
+                FILE.copy(pair.getA(), pair.getB());
             } catch (Exception e) {
                 ExceptionHandlerUtil.saveException(errorJsonFile, e);
                 new _NotificationDialogActionFAIL("Error copiando el fichero.");

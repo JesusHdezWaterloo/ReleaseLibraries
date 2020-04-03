@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import others.Pair;
 
 /**
  *
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  */
 public class Configuration implements Serializable {
 
-    private ArrayList<Pair> files = new ArrayList<>();
+    private ArrayList<Pair<String>> files = new ArrayList<>();
 
     public Configuration() {
     }
@@ -33,11 +34,11 @@ public class Configuration implements Serializable {
         return true;
     }
     
-    public ArrayList<Pair> getFiles() {
+    public ArrayList<Pair<String>> getFiles() {
         return files;
     }
 
-    public void setFiles(ArrayList<Pair> files) {
+    public void setFiles(ArrayList<Pair<String>> files) {
         this.files = files;
     }
 
