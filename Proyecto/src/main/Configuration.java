@@ -5,18 +5,18 @@
  */
 package main;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jackson.JACKSON;
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import lombok.Data;
 import others.Pair;
 
 /**
  *
  * @author Yo
  */
+@Data
 public class Configuration implements Serializable {
 
     private ArrayList<Pair<String>> files = new ArrayList<>();
@@ -33,13 +33,4 @@ public class Configuration implements Serializable {
         }
         return true;
     }
-    
-    public ArrayList<Pair<String>> getFiles() {
-        return files;
-    }
-
-    public void setFiles(ArrayList<Pair<String>> files) {
-        this.files = files;
-    }
-
 }
