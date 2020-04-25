@@ -1,7 +1,7 @@
 package main;
 
-import components.dialog.notification.types._NotificationDialogActionFAIL;
-import components.dialog.notification.types._NotificationDialogActionOK;
+import bundles.notification.types.NotificationDialogActionFAIL;
+import bundles.notification.types.NotificationDialogActionOK;
 import exceptions.ExceptionHandlerUtil;
 import file.FILE;
 import jackson.JACKSON;
@@ -10,8 +10,8 @@ import java.io.IOException;
 import others.Pair;
 
 /**
- *
- * @author Yo
+ * 
+ * @author Jesús Hernández Barrios (jhernandezb96@gmail.com)
  */
 public class Main {
 
@@ -24,12 +24,12 @@ public class Main {
             cfg = JACKSON.read(cfgJsonFile, Configuration.class);
         } catch (IOException e) {
             ExceptionHandlerUtil.saveException(errorJsonFile, e);
-            new _NotificationDialogActionFAIL("Error en configuración, usando default.");
+            new NotificationDialogActionFAIL("Error en configuración, usando default.");
             cfg = new Configuration();
             cfg.saveToJSON();
         }
         desplegarRelease();
-        new _NotificationDialogActionOK("Terminado el despliegue.");
+        new NotificationDialogActionOK("Terminado el despliegue.");
         Thread.sleep(3 * 1000);
         System.exit(0);
     }
@@ -40,7 +40,7 @@ public class Main {
                 FILE.copy(pair.getA(), pair.getB());
             } catch (Exception e) {
                 ExceptionHandlerUtil.saveException(errorJsonFile, e);
-                new _NotificationDialogActionFAIL("Error copiando el fichero.");
+                new NotificationDialogActionFAIL("Error copiando el fichero.");
             }
         }
     }
