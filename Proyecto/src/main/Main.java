@@ -1,7 +1,6 @@
 package main;
 
-import bundles.notification.types.NotificationDialogActionFAIL;
-import bundles.notification.types.NotificationDialogActionOK;
+import bundles.toast.TOAST;
 import exceptions.ExceptionHandlerUtil;
 import file.FILE;
 import jackson.JACKSON;
@@ -24,12 +23,12 @@ public class Main {
             cfg = JACKSON.read(cfgJsonFile, Configuration.class);
         } catch (IOException e) {
             ExceptionHandlerUtil.saveException(errorJsonFile, e);
-            new NotificationDialogActionFAIL("Error en configuración, usando default.");
+            TOAST.makeNotificationFAIL("Error en configuración, usando default.");
             cfg = new Configuration();
             cfg.saveToJSON();
         }
         desplegarRelease();
-        new NotificationDialogActionOK("Terminado el despliegue.");
+        TOAST.makeNotificationOK("Terminado el despliegue.");
         Thread.sleep(3 * 1000);
         System.exit(0);
     }
@@ -40,7 +39,7 @@ public class Main {
                 FILE.copy(pair.getA(), pair.getB());
             } catch (Exception e) {
                 ExceptionHandlerUtil.saveException(errorJsonFile, e);
-                new NotificationDialogActionFAIL("Error copiando el fichero.");
+                TOAST.makeNotificationFAIL("Error copiando el fichero.");
             }
         }
     }
