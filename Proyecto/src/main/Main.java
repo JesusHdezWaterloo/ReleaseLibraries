@@ -7,9 +7,10 @@ import jackson.JACKSON;
 import java.io.File;
 import java.io.IOException;
 import others.Pair;
+import personalization.PersonalizationMaterial;
 
 /**
- * 
+ *
  * @author Jesús Hernández Barrios (jhernandezb96@gmail.com)
  */
 public class Main {
@@ -29,7 +30,7 @@ public class Main {
         }
         desplegarRelease();
         TOAST.makeNotificationOK("Terminado el despliegue.");
-        Thread.sleep(3 * 1000);
+        Thread.sleep(2 * PersonalizationMaterial.getInstance().getSecondsActive() * 1000);
         System.exit(0);
     }
 
